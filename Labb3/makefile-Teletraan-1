@@ -1,0 +1,4 @@
+main : main.cpp search.h search.cpp
+	g++ -o main -std=c++2a main.cpp search.cpp -g -Wall
+run : main
+	./main
