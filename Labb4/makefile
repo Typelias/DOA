@@ -1,4 +1,4 @@
 main : main.cpp
-	g++ -o main main.cpp -g
+	g++ -o main -std=c++2a main.cpp -g
 run : main
 	./main

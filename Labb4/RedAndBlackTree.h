@@ -15,9 +15,13 @@ template <typename T>
 class RedAndBlackTree
 {
 public:
-    RedAndBlackTree() { root = NULL; }
+    RedAndBlackTree() { root = nullptr; }
     void insert(const T &data)
     {
+        auto x = search(data);
+        if (x != nullptr)
+            return;
+        std::cout << "Search done\n";
         Node *pt = new Node(data);
 
         root = BSTInsert(root, pt);
@@ -36,7 +40,7 @@ public:
     T *search(const T &target)
     {
         Node *curr = root;
-        while (curr != NULL)
+        while (curr != nullptr)
         {
             if (curr->data == target)
                 return &curr->data;
@@ -58,7 +62,7 @@ private:
         Node(T data)
         {
             this->data = data;
-            left = right = parent = NULL;
+            left = right = parent = nullptr;
         }
     };
     Node *root;
@@ -66,10 +70,10 @@ private:
     {
         Node *pt_right = pt->right;
         pt->right = pt_right->left;
-        if (pt->right != NULL)
+        if (pt->right != nullptr)
             pt->right->parent = pt;
         pt_right->parent = pt->parent;
-        if (pt->parent == NULL)
+        if (pt->parent == nullptr)
             root = pt_right;
         else if (pt == pt->parent->left)
             pt->parent->right = pt_right;
@@ -84,12 +88,12 @@ private:
 
         pt->left = pt_left->right;
 
-        if (pt->left != NULL)
+        if (pt->left != nullptr)
             pt->left->parent = pt;
 
         pt_left->parent = pt->parent;
 
-        if (pt->parent == NULL)
+        if (pt->parent == nullptr)
             root = pt_left;
 
         else if (pt == pt->parent->left)
@@ -104,8 +108,8 @@ private:
 
     void fixViolation(Node *&root, Node *&pt)
     {
-        Node *parent_pt = NULL;
-        Node *grand_parent_pt = NULL;
+        Node *parent_pt = nullptr;
+        Node *grand_parent_pt = nullptr;
 
         while ((pt != root) && (pt->color != BLACK) && (pt->parent->color == RED))
         {
@@ -123,7 +127,7 @@ private:
                 /* Case : 1 
                The uncle of pt is also red 
                Only Recoloring required */
-                if (uncle_pt != NULL && uncle_pt->color == RED)
+                if (uncle_pt != nullptr && uncle_pt->color == RED)
                 {
                     grand_parent_pt->color = RED;
                     parent_pt->color = BLACK;
@@ -161,7 +165,7 @@ private:
                 /*  Case : 1 
                 The uncle of pt is also red 
                 Only Recoloring required */
-                if ((uncle_pt != NULL) && (uncle_pt->color == RED))
+                if ((uncle_pt != nullptr) && (uncle_pt->color == RED))
                 {
                     grand_parent_pt->color = RED;
                     parent_pt->color = BLACK;
@@ -195,7 +199,7 @@ private:
 
     void inorderHelper(Node *root)
     {
-        if (root == NULL)
+        if (root == nullptr)
             return;
         inorderHelper(root->left);
         std::cout << root->data << " ";
@@ -204,7 +208,7 @@ private:
 
     Node *BSTInsert(Node *root, Node *pt)
     {
-        if (root == NULL)
+        if (root == nullptr)
             return pt;
         if (pt->data < root->data)
         {
@@ -222,7 +226,7 @@ private:
 
     void levelOrderHelper(Node *root)
     {
-        if (root == NULL)
+        if (root == nullptr)
             return;
 
         std::queue<Node *> q;
@@ -233,9 +237,9 @@ private:
             Node *temp = q.front();
             std::cout << temp->data << "   ";
             q.pop();
-            if (temp->left != NULL)
+            if (temp->left != nullptr)
                 q.push(temp->left);
-            if (temp->right != NULL)
+            if (temp->right != nullptr)
                 q.push(temp->right);
         }
     }
